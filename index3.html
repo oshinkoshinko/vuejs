@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="vue.js"></script>
+  <div id="app">
+    <!-- v-ifはボタンでの切り替えが遅い 要素を切替ごとに削除するから　条件がほとんど変わらない場合　-->
+    <template v-if="ok">
+      <p>Hello</p>
+      <p>Good bye</p>
+      <p>おはよう</p>
+    </template>
+    <button @click="ok = !ok">ボタン</button>
+    <!--v-showはdisplayをnoneにする 初期描画が遅い　頻繁に切り替える動作に使う-->
+    <p v-show="ok">Show</p>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        ok: true
+
+      }
+
+    })
+  </script>
+</body>
+
+</html>
