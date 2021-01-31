@@ -13,6 +13,9 @@
     <p>{{message}}</p>
     <p>{{name}}</p>
     <p>{{myData}}</p>
+    <hello></hello>
+    <hello></hello>
+
     <button @click="name = 'ボタンから変更'">変更</button>
   </div>
 
@@ -23,15 +26,26 @@
     <h1>こんにちは、{{name}}</h1>
     <button @click="name = '太郎さん'">名前を変更</button>
     <button @click="destroy">インスタンスを破壊</button>
+    <hello></hello>
 
   </div>
-
+  <div class="hello"></div>
+  <div class="hello"></div>
 
   <script>
     var data = {
       message: 'こんにちは',
       name: 'よしぴー'
     }
+
+    //最初に登録しておくと何回でもどこでも使用可能  
+    //Vue.component('コンポーネントの名前', {
+    //  dataやmethods,computedを書く　※書き方注意
+    //});
+
+    Vue.component('hello', {
+      template: '<p>こんにちは</p>'
+    });
 
     var vm = new Vue({
       data:
@@ -99,6 +113,11 @@
       }
     })
 
+    //elのなかは最初の一回しか描画されない→component使用　↑で登録
+    new Vue({
+      el: '.hello',
+      template: '<p>こんにちは</p>'
+    })
 
     var dir = document.createElement('div');
     console.log(dir)
