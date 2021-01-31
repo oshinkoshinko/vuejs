@@ -24,7 +24,7 @@
     }
 
     var vm = new Vue({
-      el: '#app',
+      //el: '#app',
       //データを外から持ってくることはできる ↓data//
       data:
         data,
@@ -39,12 +39,15 @@
 
     })
 
+    //el: #app を後で追加したいとき $mountで置き換え可能
+    vm.$mount('#app')
+
     //vm.message = '変えました'//
     //↓データの追加はviewがリアクティブにならない(ゲッター get name とセッター set name が用意されない)//
     //vm.name = 'よしぴー'//
     //$がついている//
-    console.log(data === vm.$data);
-    console.log(vm);
+    //console.log(data === vm.$data);
+    //console.log(vm);
   </script>
 </body>
 

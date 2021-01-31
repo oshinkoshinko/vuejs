@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="vue.js"></script>
+  <div id="app">
+    <p>{{message}}</p>
+    <p>{{name}}</p>
+    <p>{{myData}}</p>
+    <button @click="name = 'ボタンから変更'">変更</button>
+  </div>
+
+  <!-- htmlの書き方は3通りある templateとrender-->
+  <div id="app2"></div>
+  <div id="app3"></div>
+
+
+
+  <script>
+    var data = {
+      message: 'こんにちは',
+      name: 'よしぴー'
+    }
+
+    var vm = new Vue({
+      //el: '#app',
+      //データを外から持ってくることはできる ↓data//
+      data:
+        data,
+      computed: {
+        myData: function () {
+          return this.$data;
+        }
+      }
+    })
+
+    //el: #app を後で追加したいとき $mountで置き換え可能
+    vm.$mount('#app')
+
+    new Vue({
+      //el: '#app2',
+      data: {
+        name: 'よしぴー'
+      },
+      //基本的に使わない
+      template: '<h1>こんにちは、{{name}}</h1>'
+    }).$mount('#app2') //$mountこのやり方でも使用可能
+
+    //仮想DOM: DOM要素を模したJavascriptのオブジェクト
+    //なぜ仮想DOMが必要? 効率よくUpdateする為 (DOMに直接データを追加、削除、編集等すると遅くなる)
+    //まず仮想DOMに反映させる 前回の仮想DOMと新しい仮想DOMの差分だけをDOMに反映させる
+    new Vue({
+      data: {
+        name: 'よしぴー'
+      },
+      render: function (createElement) {
+        //仮想node=vnode(節)　DOM要素ではなく仮想DOM 'document.createElement'と意味が異なる
+        console.log(createElement('h1', 'こんにちは、' + this.name))
+        return createElement('h1', 'こんにちは、' + this.name);
+      },
+    }).$mount('#app3')
+
+    //ブラウザがhtmlをDOM(document object model)に変換する documentはブラウザが作成したものオブジェクト
+    var dir = document.createElement('div');
+    console.log(dir)
+    console.log(document)
+    //.dir で documentの中身を全て見れる
+    console.dir(document)
+
+  </script>
+</body>
+
+</html>
