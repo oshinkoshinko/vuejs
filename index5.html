@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="vue.js"></script>
+  <div id="app">
+    <ul>
+      <!--'v-for'　demerit 要素の移動を最小限にする（りんごのところにバナナと書こう　inputタグは使い回そう）
+         => 必ずkey属性を設定しよう(divタグに名前をつけるイメージ)　※templateは使用不可(DOMに表示されない為)-->
+      <div v-for="fruit in fruits" :key="fruit">
+        <p>{{fruit}}</p>
+        <input type="text">
+      </div>
+    </ul>
+    <button @click="remove">先頭を削除</button>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        fruits: ['りんご', 'バナナ', 'ぶどう']
+      },
+      methods: {
+        remove: function () {
+          //shiftは先頭を削除//
+          this.fruits.shift()
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
