@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="vue.js"></script>
+  <div id="app">
+    <p>{{message}}</p>
+    <p>{{name}}</p>
+    <p>{{myData}}</p>
+    <button @click="name = 'ボタンから変更'">変更</button>
+  </div>
+
+  <!-- htmlの書き方は3通りある templateとrender-->
+  <div id="app2"></div>
+  <div id="app3"></div>
+  <div id="app4">
+    <h1>こんにちは、{{name}}</h1>
+    <button @click="name = '太郎さん'">名前を変更</button>
+    <button @click="destroy">インスタンスを破壊</button>
+
+  </div>
+
+
+  <script>
+    var data = {
+      message: 'こんにちは',
+      name: 'よしぴー'
+    }
+
+    var vm = new Vue({
+      data:
+        data,
+      computed: {
+        myData: function () {
+          return this.$data;
+        }
+      }
+    })
+
+    vm.$mount('#app')
+
+    new Vue({
+      data: {
+        name: 'よしぴー'
+      },
+      template: '<h1>こんにちは、{{name}}</h1>'
+    }).$mount('#app2')
+
+    new Vue({
+      data: {
+        name: 'よしぴー'
+      },
+      render: function (createElement) {
+        console.log(createElement('h1', 'こんにちは、' + this.name))
+        return createElement('h1', 'こんにちは、' + this.name);
+      },
+    }).$mount('#app3')
+
+    new Vue({
+      el: '#app4',
+      data: {
+        name: 'よしぴー'
+      },
+      beforeCreate: function () {
+        console.log('beforeCreate');
+      },
+      created: function () {
+        console.log('created');
+      },
+      beforeMount: function () {
+        console.log('beforeMount');
+      },
+      mounted: function () {
+        console.log('mounted');
+      },
+      beforeUpdate: function () {
+        console.log('beforeUpdate');
+      },
+      updated: function () {
+        console.log('updated');
+      },
+      beforeDestroy: function () {
+        console.log('beforeDestroy');
+      },
+      destroyed: function () {
+        console.log('destroyed');
+      },
+      methods: {
+        //vuejsが機能しなくなる = 破壊する　名前を変更とかもできなくなる
+        destroy: function () {
+          this.$destroy()
+        }
+      }
+    })
+
+
+    var dir = document.createElement('div');
+    console.log(dir)
+    console.dir(dir)
+    console.log(document)
+    console.dir(document)
+
+  </script>
+</body>
+
+</html>
