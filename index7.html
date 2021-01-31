@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="vue.js"></script>
+  <div id="app">
+    <p>{{message}}</p>
+    <p>{{name}}</p>
+    <p>{{myData}}</p>
+    <button @click="name = 'ボタンから変更'">変更</button>
+  </div>
+
+
+  <script>
+    var data = {
+      message: 'こんにちは',
+      name: 'よしぴー'
+    }
+
+    var vm = new Vue({
+      el: '#app',
+      //データを外から持ってくることはできる ↓data//
+      data:
+        data,
+      computed: {
+        myData: function () {
+          return this.$data;
+        }
+      }
+      //各プロパティにゲッターとセッターが用意されている//
+      //message: 'こんにちは',//
+      //name: 'よしぴー'//
+
+    })
+
+    //vm.message = '変えました'//
+    //↓データの追加はviewがリアクティブにならない(ゲッター get name とセッター set name が用意されない)//
+    //vm.name = 'よしぴー'//
+    //$がついている//
+    console.log(data === vm.$data);
+    console.log(vm);
+  </script>
+</body>
+
+</html>
