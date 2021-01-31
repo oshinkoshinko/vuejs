@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="vue.js"></script>
+
+  <div id="app">
+    <my-component></my-component>
+    <my-component></my-component>
+    <my-component></my-component>
+    <hr>
+  </div>
+
+  <div id="app2">
+    <my-component></my-component>
+    <my-component></my-component>
+    <my-component></my-component>
+  </div>
+  <script>
+
+    //local登録　一部のインスタンスに適用したい時 "var component"
+    var component = {
+      data: function () {
+        return {
+          number: 12
+        }
+      },
+      template: '<p>いいね({{number}})<button @click="increment">+1</button></p>',
+      methods: {
+        increment: function () {
+          this.number += 1;
+        }
+      }
+    }
+
+    //global登録
+    //componentの中はデータは関数(function) 初期値のobjectを返させる
+    //componentに関数をしようしないとエラーが出る仕組み
+    //    Vue.component('my-component', {
+    //      data: function () {
+    //        return {
+    //          number: 12
+    //        }
+    //      },
+    //      template: '<p>いいね({{number}})<button @click="increment">+1</button></p>',
+    //      methods: {
+    //        increment: function () {
+    //          this.number += 1;
+    //        }
+    //     }
+    //    })
+
+    //ローカル登録の際はcomponent"s":
+    new Vue({
+      el: '#app',
+      components: {
+        'my-component': component
+      }
+    })
+
+    new Vue({
+      el: '#app2',
+    })
+
+  </script>
+</body>
+
+</html>
